@@ -1,0 +1,19 @@
+{
+  "expo": {
+    "name": "Compass",
+    "description": "A simple compass app built with expo & react-native.",
+    "githubUrl": "https://github.com/rahulhaque/compass-react-native",
+    "sdkVersion": "27.0.0",
+    "icon": "./assets/icon.png",
+    "version": "0.0.1",
+    "slug": "compass",
+    "privacy": "public",
+    "orientation": "portrait",
+    "ios": {
+      "bundleIdentifier": "org.rahulhaque.compass"
+    },
+    "android": {
+      "package": "org.rahulhaque.compass"
+    }
+  }
+}
