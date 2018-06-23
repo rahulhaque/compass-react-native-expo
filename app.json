@@ -9,6 +9,11 @@
     "slug": "compass",
     "privacy": "public",
     "orientation": "portrait",
+    "splash": {
+	  "image": "./assets/splash.png",
+	  "backgroundColor": "#000",
+	  "resizeMode": "cover"
+	},
     "ios": {
       "bundleIdentifier": "org.rahulhaque.compass"
     },

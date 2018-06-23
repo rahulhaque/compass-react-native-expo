@@ -15,12 +15,11 @@ export default class App extends Component {
   }
 
   componentWillMount() {
-    ScreenOrientation.allow(ScreenOrientation.Orientation.PORTRAIT);
+    ScreenOrientation.allow(ScreenOrientation.Orientation.PORTRAIT_UP);
   };
 
   componentDidMount() {
     this._toggle();
-    console.log(Dimensions.get('window'));
   };
 
   componentWillUnmount() {
