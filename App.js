@@ -97,7 +97,7 @@ export default class App extends Component {
     return (
 
       <Grid style={{backgroundColor: 'black'}}>
-        <Row style={{alignItems: 'center'}} size={1}>
+        <Row style={{alignItems: 'center'}} size={.9}>
           <Col style={{alignItems: 'center'}}>
             <Text
               style={{
@@ -106,6 +106,17 @@ export default class App extends Component {
                 fontWeight: 'bold'
               }}>{this._direction(this._degree(this.state.magnetometer))}
             </Text>
+          </Col>
+        </Row>
+
+        <Row style={{alignItems: 'center'}} size={.1}>
+          <Col style={{alignItems: 'center'}}>
+            <View style={{position: 'absolute', width: width, alignItems: 'center', top: 0}}>
+              <Image source={require('./assets/compass_pointer.png')} style={{
+                height: height / 26,
+                resizeMode: 'contain'
+              }}/>
+            </View>
           </Col>
         </Row>
 
@@ -119,13 +130,6 @@ export default class App extends Component {
           }}>
             {this._degree(this.state.magnetometer)}°
           </Text>
-
-          <View style={{position: 'absolute', width: width, alignItems: 'center', top: 0}}>
-            <Image source={require('./assets/compass_pointer.png')} style={{
-              height: height / 26,
-              resizeMode: 'contain'
-            }}/>
-          </View>
 
           <Col style={{alignItems: 'center'}}>
 
