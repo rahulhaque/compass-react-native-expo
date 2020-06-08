@@ -1,9 +1,9 @@
-# Compass React Native (Expo)
+# Compass React Native 🧭 (Expo)
 A simple compass app built with expo & react-native. Non expo version can be found [here](https://github.com/rahulhaque/compass-react-native).
 
 
 ## Description
-A very simple demonstration of how to use device's built in `Magnetometer` sensor to identify direction and calculate degree of angle. Built on Expo sdk version 27.0.0.
+A very simple demonstration of how to use device's built in `Magnetometer` sensor to identify direction and calculate degree of angle. Built on Expo sdk version 37.0.1.
 
 
 ## Run the App
@@ -11,7 +11,7 @@ You can run the demo app from [Expo](https://expo.io/@rahulhaque/compass)
 
 or
 
-Clone or download the repository. `cd` into directory. Run `npm install` then `npm start`
+Clone or download the repository. `cd` into directory. Run `npm install` then `expo start`
 
 
 ## Screenshots
