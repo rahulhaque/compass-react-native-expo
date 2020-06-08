@@ -1,53 +1,46 @@
-import React, {Component} from 'react';
-import {Image, View, Text, Dimensions} from 'react-native';
-import {Grid, Col, Row} from 'react-native-easy-grid';
-import {Magnetometer, ScreenOrientation} from 'expo';
+import React, { useState, useEffect } from 'react';
+import { Image, View, Text, Dimensions } from 'react-native';
+import { Grid, Col, Row } from 'react-native-easy-grid';
+import { Magnetometer } from 'expo-sensors';
 
-const {height, width} = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
 
-export default class App extends Component {
+export default App = () => {
 
-  constructor() {
-    super();
-    this.state = {
-      magnetometer: '0',
+  const [subscription, setSubscription] = useState(null);
+  const [magnetometer, setMagnetometer] = useState(0);
+
+  useEffect(() => {
+    _toggle();
+    return () => {
+      _unsubscribe();
     };
-  }
+  }, []);
 
-  componentWillMount() {
-    ScreenOrientation.allow(ScreenOrientation.Orientation.PORTRAIT_UP);
-  };
-
-  componentDidMount() {
-    this._toggle();
-  };
-
-  componentWillUnmount() {
-    this._unsubscribe();
-  };
-
-  _toggle = () => {
-    if (this._subscription) {
-      this._unsubscribe();
+  const _toggle = () => {
+    if (subscription) {
+      _unsubscribe();
     } else {
-      this._subscribe();
+      _subscribe();
     }
   };
 
-  _subscribe = async () => {
-    this._subscription = Magnetometer.addListener((data) => {
-      this.setState({magnetometer: this._angle(data)});
-    });
+  const _subscribe = () => {
+    setSubscription(
+      Magnetometer.addListener((data) => {
+        setMagnetometer(_angle(data));
+      })
+    );
   };
 
-  _unsubscribe = () => {
-    this._subscription && this._subscription.remove();
-    this._subscription = null;
+  const _unsubscribe = () => {
+    subscription && subscription.remove();
+    subscription = null;
   };
 
-  _angle = (magnetometer) => {
+  const _angle = (magnetometer) => {
     if (magnetometer) {
-      let {x, y, z} = magnetometer;
+      let { x, y, z } = magnetometer;
 
       if (Math.atan2(y, x) >= 0) {
         angle = Math.atan2(y, x) * (180 / Math.PI);
@@ -60,7 +53,7 @@ export default class App extends Component {
     return Math.round(angle);
   };
 
-  _direction = (degree) => {
+  const _direction = (degree) => {
     if (degree >= 22.5 && degree < 67.5) {
       return 'NE';
     }
@@ -88,70 +81,68 @@ export default class App extends Component {
   };
 
   // Match the device top with pointer 0° degree. (By default 0° starts from the right of the device.)
-  _degree = (magnetometer) => {
+  const _degree = (magnetometer) => {
     return magnetometer - 90 >= 0 ? magnetometer - 90 : magnetometer + 271;
   };
 
-  render() {
+  return (
 
-    return (
+    <Grid style={{ backgroundColor: 'black' }}>
+      <Row style={{ alignItems: 'center' }} size={.9}>
+        <Col style={{ alignItems: 'center' }}>
+          <Text
+            style={{
+              color: '#fff',
+              fontSize: height / 26,
+              fontWeight: 'bold'
+            }}>
+            {_direction(_degree(magnetometer))}
+          </Text>
+        </Col>
+      </Row>
 
-      <Grid style={{backgroundColor: 'black'}}>
-        <Row style={{alignItems: 'center'}} size={.9}>
-          <Col style={{alignItems: 'center'}}>
-            <Text
-              style={{
-                color: '#fff',
-                fontSize: height / 26,
-                fontWeight: 'bold'
-              }}>{this._direction(this._degree(this.state.magnetometer))}
-            </Text>
-          </Col>
-        </Row>
+      <Row style={{ alignItems: 'center' }} size={.1}>
+        <Col style={{ alignItems: 'center' }}>
+          <View style={{ position: 'absolute', width: width, alignItems: 'center', top: 0 }}>
+            <Image source={require('./assets/compass_pointer.png')} style={{
+              height: height / 26,
+              resizeMode: 'contain'
+            }} />
+          </View>
+        </Col>
+      </Row>
 
-        <Row style={{alignItems: 'center'}} size={.1}>
-          <Col style={{alignItems: 'center'}}>
-            <View style={{position: 'absolute', width: width, alignItems: 'center', top: 0}}>
-              <Image source={require('./assets/compass_pointer.png')} style={{
-                height: height / 26,
-                resizeMode: 'contain'
-              }}/>
-            </View>
-          </Col>
-        </Row>
-
-        <Row style={{alignItems: 'center'}} size={2}>
-          <Text style={{
-            color: '#fff',
-            fontSize: height / 27,
-            width: width,
-            position: 'absolute',
-            textAlign: 'center'
-          }}>
-            {this._degree(this.state.magnetometer)}°
+      <Row style={{ alignItems: 'center' }} size={2}>
+        <Text style={{
+          color: '#fff',
+          fontSize: height / 27,
+          width: width,
+          position: 'absolute',
+          textAlign: 'center'
+        }}>
+          {_degree(magnetometer)}°
           </Text>
 
-          <Col style={{alignItems: 'center'}}>
+        <Col style={{ alignItems: 'center' }}>
 
-            <Image source={require("./assets/compass_bg.png")} style={{
-              height: width - 80,
-              justifyContent: 'center',
-              alignItems: 'center',
-              resizeMode: 'contain',
-              transform: [{rotate: 360 - this.state.magnetometer + 'deg'}]
-            }}/>
+          <Image source={require("./assets/compass_bg.png")} style={{
+            height: width - 80,
+            justifyContent: 'center',
+            alignItems: 'center',
+            resizeMode: 'contain',
+            transform: [{ rotate: 360 - magnetometer + 'deg' }]
+          }} />
 
-          </Col>
-        </Row>
+        </Col>
+      </Row>
 
-        <Row style={{alignItems: 'center'}} size={1}>
-          <Col style={{alignItems: 'center'}}>
-            <Text style={{color: '#fff'}}>Copyright @RahulHaque</Text>
-          </Col>
-        </Row>
+      <Row style={{ alignItems: 'center' }} size={1}>
+        <Col style={{ alignItems: 'center' }}>
+          <Text style={{ color: '#fff' }}>Copyright @RahulHaque</Text>
+        </Col>
+      </Row>
 
-      </Grid>
+    </Grid>
 
-    );
-  };
+  );
 }
