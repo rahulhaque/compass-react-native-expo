@@ -16,3 +16,8 @@ Clone or download the repository. `cd` into directory. Run `npm install` then `e
 
 ## Screenshots
 <img title="compass" src="https://github.com/rahulhaque/compass-react-native-expo/blob/master/screenshots/image.png" width="300"/>
+
+
+## More Info
+
+Spare a ⭐ to keep me motivated. 😃
