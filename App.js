@@ -35,7 +35,7 @@ export default App = () => {
 
   const _unsubscribe = () => {
     subscription && subscription.remove();
-    subscription = null;
+    setSubscription(null);
   };
 
   const _angle = (magnetometer) => {
