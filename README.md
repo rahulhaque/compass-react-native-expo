@@ -3,7 +3,7 @@ A simple compass app built with expo & react-native. Non expo version can be fou
 
 
 ## Description
-A very simple demonstration of how to use device's built in `Magnetometer` sensor to identify direction and calculate degree of angle. Built on Expo sdk version 37.0.1.
+A very simple demonstration of how to use device's built in `Magnetometer` sensor to identify direction and calculate degree of angle. Built on Expo SDK version 43.
 
 
 ## Run the App
